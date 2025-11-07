@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shelf Scanner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Shelf Scanner</h1>
+    <p>Scan barcodes, enter quantity, UOM, and location, then export to CSV.</p>
+  </header>
+
+  <main>
+    <section id="scanner-section">
+      <button id="start-scan">Start Scanner</button>
+      <button id="stop-scan" disabled>Stop Scanner</button>
+      <p id="scanner-status">Scanner not started.</p>
+      <video id="video" autoplay playsinline></video>
+      <canvas id="canvas" hidden></canvas>
+    </section>
+
+    <section id="entry-section">
+      <h2>Current Item</h2>
+      <form id="entry-form">
+        <label>
+          Barcode
+          <input type="text" id="barcode" name="barcode" readonly required />
+        </label>
+
+        <label>
+          Quantity
+          <input type="number" id="quantity" name="quantity" min="0" step="1" required />
+        </label>
+
+        <label>
+          Unit of Measure
+          <input type="text" id="uom" name="uom" placeholder="EA, BOX, CS..." />
+        </label>
+
+        <label>
+          Location (optional)
+          <input type="text" id="location" name="location" placeholder="Shelf A3, Room 101..." />
+        </label>
+
+        <div class="form-actions">
+          <button type="submit">Save Line</button>
+          <button type="button" id="clear-current">Clear Current</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="table-section">
+      <h2>Scanned Lines</h2>
+      <div class="table-actions">
+        <button id="export-csv">Export CSV</button>
+        <button id="clear-all">Clear All</button>
+      </div>
+      <div class="table-wrapper">
+        <table id="items-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Timestamp</th>
+              <th>Barcode</th>
+              <th>Quantity</th>
+              <th>UOM</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody id="items-body">
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Runs in your browser. Export as CSV when finished.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
